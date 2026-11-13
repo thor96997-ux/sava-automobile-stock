@@ -7,20 +7,20 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest          # or pin to ubuntu-24.04 if you want stability
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v5   # updated from v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 17
+          java-version: '17'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4   # ← ye change kiya
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
@@ -32,6 +32,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sava-debug-apk
-          path: |
-            app/build/outputs/apk/debug/*.apk
-            **/build/outputs/apk/debug/*.apk
+          path: '**/build/outputs/apk/**/*.apk'
